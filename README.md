@@ -2,6 +2,9 @@
 
 或许你只是想和ta有更多的共同语言，使用当前脚本，你或许就能从ta在网易云音乐收藏的歌单里面，找寻ta曾经的评论，多一点了解。
 
+## 效果
+![image](https://github.com/LvDunn/Music163-WhichSongCommented/blob/master/演示.png)
+
 ## 提示
     歌单规模越大花费的时间越长，尽量选择歌曲数量较小的歌单，推荐使用年度歌单
 
