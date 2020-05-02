@@ -48,9 +48,12 @@ class Music163_Spider(object):
         # 用来加密或者解密的初始向量(必须是16位)
         iv = '0102030405060708'
 
-        cipher = AES.new(key, AES.MODE_CBC, iv)
+        try:
+            cipher = AES.new(key.encode('utf-8'), AES.MODE_CBC, iv.encode("utf8"))
+        except Exception as e:
+            print(e)
         # 加密后得到的是bytes类型的数据
-        encryptedbytes = cipher.encrypt(msg)
+        encryptedbytes = cipher.encrypt(msg.encode('utf-8'))
         # 使用Base64进行编码,返回byte字符串
         encodestrs = base64.b64encode(encryptedbytes)
         # 对byte字符串按utf-8进行解码
@@ -127,20 +130,17 @@ class Music163_Spider(object):
             if r.status_code == 200:
                 # 返回json格式的数据
                 return r.json()
-
         except:
             print("爬取失败!")
 
     def get_total_comments(self, song_id, song_name, user_id):
         page = 1
-        
 
         try:
             params, encSecKey = self.get_params(page)
             url = 'https://music.163.com/weapi/v1/resource/comments/R_SO_4_' + str(song_id) + '?csrf_token='
             data = {'params': params, 'encSecKey': encSecKey}
             json = self.get_song_comments(url, data)
-            #print(json)
             total = json['total']
             pages = math.ceil(total / 20)
             comments = json['comments']
@@ -170,11 +170,12 @@ if __name__ == '__main__':
 
     songlist_id = input("请输入歌单ID:")
     songlist, user_id = spider.from_playlist_get_song_list(songlist_id)
-
     songcomments = []
     for song in songlist:
         song_id = song['id']
-        songcomments = spider.get_total_comments(song_id, song['name'], user_id)
+        spider.get_total_comments(song_id, song['name'], user_id)
+        
+        #songcomments = spider.get_total_comments(song_id, song['name'], user_id)
         """if songcomments is False:
             break
         elif len(songcomments):
