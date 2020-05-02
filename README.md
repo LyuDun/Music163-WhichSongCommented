@@ -12,7 +12,7 @@
     
     1. git clone https://github.com/LvDunn/Music163-WhichSongCommented.git
     
-    2. cd Music163-WhichSongCommented  && python comment_get.py
+    2. cd Music163-WhichSongCommented && pip install -r requirements.txt && python comment_get.py
 
     3. 在网易云音乐网页端、电脑端，或者移动端得到歌单歌单id
         - 格式一(从网页复制的歌单网址) https://music.163.com/#/playlist?id=歌单id
