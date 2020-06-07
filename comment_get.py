@@ -170,10 +170,18 @@ if __name__ == '__main__':
 
     songlist_id = input("请输入歌单ID:")
     songlist, user_id = spider.from_playlist_get_song_list(songlist_id)
-    songcomments = []
-    for song in songlist:
-        song_id = song['id']
-        spider.get_total_comments(song_id, song['name'], user_id)
+    #songcomments = []
+    select_type = int(input("查询方式：【1】查询全部 【2】查询指定序号歌曲:"))
+    if 1 == select_type:
+        for song in songlist:
+            spider.get_total_comments(song['id'], song['name'], user_id)
+    elif 2 == select_type:
+        number = int(input("输入指定歌曲查询序号"))
+        song = songlist[number-1]  
+        spider.get_total_comments(song['id'], song['name'], user_id)
+    else:
+        print('输入错误')
+
         
         #songcomments = spider.get_total_comments(song_id, song['name'], user_id)
         """if songcomments is False:
@@ -184,4 +192,4 @@ if __name__ == '__main__':
                     comment['time'], song['name'],comment['content']))
         else:
             print('ta在歌曲<{}> 下没有评论'.format(song['name']))
-"""
+        """
